@@ -18,20 +18,9 @@ class BinomViewModel :ViewModel() {
                 _result.value = "Geçersiz değerler!"
                 return
             }
-
-            var totalProbability = 0.0
-            val details = StringBuilder()
-
-            for (i in 0..xInt) {
-                val combination = factorial(nInt) / (factorial(i) * factorial(nInt - i))
-                val probability = combination * p.pow(i) * (1 - p).pow(nInt - i)
-                totalProbability += probability
-
-                details.append("P(X = $i) = ${"%.5f".format(probability)}\n")
-            }
-
-            details.append("Toplam (P(X ≤ $xInt)) = ${"%.5f".format(totalProbability)}")
-            _result.value = details.toString()
+                val combination = factorial(nInt) / (factorial(xInt) * factorial(nInt - xInt))
+                val probability = combination * p.pow(xInt) * (1 - p).pow(nInt - xInt)
+            _result.value = String.format("%.5f",probability)
 
         } catch (e: Exception) {
             _result.value = "Hesaplama hatası!"
